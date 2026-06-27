@@ -25,16 +25,18 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 
-COPY composer.json composer.lock ./
+# Copy seluruh project terlebih dahulu
+COPY . .
+
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 RUN composer install \
     --no-dev \
     --prefer-dist \
-    --no-interaction \
     --optimize-autoloader \
-    --ignore-platform-req=ext-exif
+    --no-interaction
 
-COPY . .
+RUN php artisan optimize:clear || true
 
 EXPOSE 8080
 
