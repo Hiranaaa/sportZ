@@ -3,3 +3,5 @@
 /public/build
 /public/hot
 .env
+/bootstrap/cache/*.php
+!/bootstrap/cache/.gitkeep
